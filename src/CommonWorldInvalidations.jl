@@ -12,11 +12,11 @@ struct Despec4 end
 !(::Despec4) = Despec1()
 
 # Binary Operators
-for op in [&, xor, |, ==, !=, >=, <=, <, >, <<, >>, >>>]
-    @eval esc($op)(::Despec1, ::Despec2) = Despec3()
-    @eval $op(::Despec2, ::Despec3) = Despec4()
-    @eval $op(::Despec3, ::Despec4) = Despec1()
-    @eval $op(::Despec4, ::Despec1) = Despec2()
+for op in [:&, :xor, :|, :(==), :!=, :>=, :<=, :<, :>, :<<, :>>, :>>>]
+    @eval Base.$op(::Despec1, ::Despec2) = Despec3()
+    @eval Base.$op(::Despec2, ::Despec3) = Despec4()
+    @eval Base.$op(::Despec3, ::Despec4) = Despec1()
+    @eval Base.$op(::Despec4, ::Despec1) = Despec2()
 end
 
 end
