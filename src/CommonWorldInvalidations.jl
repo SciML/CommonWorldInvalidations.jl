@@ -134,14 +134,8 @@ Base._any(f, ::VDespec3, ::Colon)::Bool = true
 Base._any(f, ::VDespec4, ::Colon)::Bool = true
 =#
 
-struct NDespec1 <: Number end
-struct NDespec2 <: Number end
-struct NDespec3 <: Number end
-struct NDespec4 <: Number end
-
-Base.convert(::Type{T}, ::Union{NDespec1, NDespec2}) where T<:Number = NDespec1()
-Base.convert(::Type{T}, ::NDespec2) where T<:Number = NDespec2()
-Base.convert(::Type{T}, ::NDespec3) where T<:Number = NDespec3()
-Base.convert(::Type{T}, ::NDespec4) where T<:Number = NDespec4()
-
+Base.convert(::Type{T}, ::Despec1) where T<:Real = one(T)
+Base.convert(::Type{T}, ::Despec2) where T<:Real = one(T)
+Base.convert(::Type{T}, ::Despec3) where T<:Real = one(T)
+Base.convert(::Type{T}, ::Despec4) where T<:Real = one(T)
 end
