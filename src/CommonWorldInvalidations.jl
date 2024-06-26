@@ -60,11 +60,6 @@ Base.:(==)(::Nothing, ::Despec3) = Despec4()
 Base.:(==)(::Nothing, ::Despec4) = Despec1()
 Base.:(==)(::Nothing, ::Despec1) = Despec2()
 
-Base.:(==)(::Despec1, ::Symbol) = false
-Base.:(==)(::Despec2, ::Symbol) = false
-Base.:(==)(::Despec3, ::Symbol) = false
-Base.:(==)(::Despec4, ::Symbol) = false
-
 struct UDespec1 <: AbstractUnitRange{Float64} end
 struct UDespec2 <: AbstractUnitRange{Float64} end
 struct UDespec3 <: AbstractUnitRange{Float64} end
@@ -108,4 +103,5 @@ Base.convert(::Type{T}, ::Despec1) where T<:Real = one(T)
 Base.convert(::Type{T}, ::Despec2) where T<:Real = one(T)
 Base.convert(::Type{T}, ::Despec3) where T<:Real = one(T)
 Base.convert(::Type{T}, ::Despec4) where T<:Real = one(T)
+
 end
