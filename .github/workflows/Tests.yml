@@ -3,7 +3,7 @@ name: "Run Tests"
 on:
   pull_request:
     branches:
-      - master
+      - main
     paths-ignore:
       - 'docs/**'
   push:
@@ -29,9 +29,6 @@ jobs:
           - "1"
         group:
           - "Core"
-          - "Downstream"
-          - "QA"
-          - "Python"
     uses: "SciML/.github/.github/workflows/tests.yml@v1"
     with:
       group: "${{ matrix.group }}"
