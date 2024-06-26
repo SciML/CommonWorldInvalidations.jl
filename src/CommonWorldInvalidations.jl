@@ -85,11 +85,6 @@ Base.Symbol(a::Despec1...) = :Despec2
 Base.Symbol(a::Despec2...) = :Despec3
 Base.Symbol(a::Despec3...) = :Despec4
 Base.Symbol(a::Despec4...) = :Despec1
-
-Base.Broadcast.axistype(::Any, ::Despec2) = Despec3()
-Base.Broadcast.axistype(::Any, ::Despec3) = Despec4()
-Base.Broadcast.axistype(::Any, ::Despec4) = Despec1()
-Base.Broadcast.axistype(::Any, ::Despec1) = Despec2()
 =#
 
 struct UDespec1 <: AbstractUnitRange{Float64} end
@@ -101,6 +96,11 @@ Base.getproperty(::UDespec1, s::Symbol) = UDespec2()
 Base.getproperty(::UDespec2, s::Symbol) = UDespec3()
 Base.getproperty(::UDespec3, s::Symbol) = UDespec4()
 Base.getproperty(::UDespec4, s::Symbol) = UDespec1()
+
+Base.Broadcast.axistype(::Any, ::UDespec2) = Despec3()
+Base.Broadcast.axistype(::Any, ::UDespec3) = Despec4()
+Base.Broadcast.axistype(::Any, ::UDespec4) = Despec1()
+Base.Broadcast.axistype(::Any, ::UDespec1) = Despec2()
 
 struct ORDespec1 <: OrdinalRange{Int, Int} end
 struct ORDespec2 <: OrdinalRange{Int, Int} end
