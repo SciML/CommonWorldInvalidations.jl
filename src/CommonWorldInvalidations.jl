@@ -60,32 +60,10 @@ Base.:(==)(::Nothing, ::Despec3) = Despec4()
 Base.:(==)(::Nothing, ::Despec4) = Despec1()
 Base.:(==)(::Nothing, ::Despec1) = Despec2()
 
-#=
-Base.:(==)(::Despec1, ::Symbol) = Despec3()
-Base.:(==)(::Despec2, ::Symbol) = Despec4()
-Base.:(==)(::Despec3, ::Symbol) = Despec1()
-Base.:(==)(::Despec4, ::Symbol) = Despec2()
-
-Base.:(==)(::Any, ::Despec2) = Despec3()
-Base.:(==)(::Any, ::Despec3) = Despec4()
-Base.:(==)(::Any, ::Despec4) = Despec1()
-Base.:(==)(::Any, ::Despec1) = Despec2()
-
-Base.isequal(::Despec1, ::Despec2)::Bool = true
-Base.isequal(::Despec2, ::Despec3)::Bool = true
-Base.isequal(::Despec3, ::Despec4)::Bool = true
-Base.isequal(::Despec4, ::Despec1)::Bool = true
-
-Base.zip(a::Despec1...) = Despec2()
-Base.zip(a::Despec2...) = Despec3()
-Base.zip(a::Despec3...) = Despec4()
-Base.zip(a::Despec4...) = Despec1()
-
-Base.Symbol(a::Despec1...) = :Despec2
-Base.Symbol(a::Despec2...) = :Despec3
-Base.Symbol(a::Despec3...) = :Despec4
-Base.Symbol(a::Despec4...) = :Despec1
-=#
+Base.:(==)(::Despec1, ::Symbol) = false
+Base.:(==)(::Despec2, ::Symbol) = false
+Base.:(==)(::Despec3, ::Symbol) = false
+Base.:(==)(::Despec4, ::Symbol) = false
 
 struct UDespec1 <: AbstractUnitRange{Float64} end
 struct UDespec2 <: AbstractUnitRange{Float64} end
@@ -125,14 +103,6 @@ Base.eachindex(::Base.IndexLinear, ::VDespec1) = VDespec2()
 Base.eachindex(::Base.IndexLinear, ::VDespec2) = VDespec3()
 Base.eachindex(::Base.IndexLinear, ::VDespec3) = VDespec4()
 Base.eachindex(::Base.IndexLinear, ::VDespec4) = VDespec1()
-
-#=
-# _any(f, A::SparseArrays.AbstractSparseMatrixCSC, ::Colon) @ SparseArrays
-Base._any(f, ::VDespec1, ::Colon)::Bool = true
-Base._any(f, ::VDespec2, ::Colon)::Bool = true
-Base._any(f, ::VDespec3, ::Colon)::Bool = true
-Base._any(f, ::VDespec4, ::Colon)::Bool = true
-=#
 
 Base.convert(::Type{T}, ::Despec1) where T<:Real = one(T)
 Base.convert(::Type{T}, ::Despec2) where T<:Real = one(T)
