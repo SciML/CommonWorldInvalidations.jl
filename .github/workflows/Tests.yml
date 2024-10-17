@@ -27,6 +27,8 @@ jobs:
       matrix:
         version:
           - "1"
+          - "lts"
+          - "pre"
         group:
           - "Core"
     uses: "SciML/.github/.github/workflows/tests.yml@v1"
