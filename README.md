@@ -1,9 +1,12 @@
 # CommonWorldInvalidations.jl
 
-CommonWorldInvalidations.jl is a package that fixes the common unfixable invalidators by simply forcing
-the invalidations. It's made to be an unchanged dependency that is then reused by downstream libraries
-with `PrecompileTools.@recompile_invalidations` so the common invalidators are all handled during the
-precompilation stage a single time.
+CommonWorldInvalidations.jl is designed to prevent
+[invalidations](https://timholy.github.io/SnoopCompile.jl/stable/tutorials/invalidations/#What-are-invalidations?),
+which occur when newly-defined methods force old code to be recompiled. It implements the principle of
+["define the world early"](https://timholy.github.io/SnoopCompile.jl/stable/tutorials/invalidations/#Method-1:-defer-compilation-until-the-full-world-is-known).
+The best use of `CommonWorldInvalidations.jl` is to make it a dependency as early in your "stack" as possible,
+so that methods that formerly would have been invalidated know about these extra methods before they get
+compiled, thus avoiding the invalidation.
 
 ## What is this package doing and why is it necessary?
 
