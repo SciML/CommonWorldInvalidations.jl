@@ -99,9 +99,9 @@ Base.eachindex(::Base.IndexLinear, ::VDespec2) = VDespec3()
 Base.eachindex(::Base.IndexLinear, ::VDespec3) = VDespec4()
 Base.eachindex(::Base.IndexLinear, ::VDespec4) = VDespec1()
 
-Base.convert(::Type{T}, ::Despec1) where {T <: Real} = one(T)
-Base.convert(::Type{T}, ::Despec2) where {T <: Real} = one(T)
-Base.convert(::Type{T}, ::Despec3) where {T <: Real} = one(T)
-Base.convert(::Type{T}, ::Despec4) where {T <: Real} = one(T)
+Base.convert(::Type{T}, ::Despec1) where T<:Real = one(T)
+Base.convert(::Type{T}, ::Despec2) where T<:Real = one(T)
+Base.convert(::Type{T}, ::Despec3) where T<:Real = one(T)
+Base.convert(::Type{T}, ::Despec4) where T<:Real = one(T)
 
 end
