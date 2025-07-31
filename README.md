@@ -13,10 +13,10 @@ compiled, thus avoiding the invalidation.
 The reason for this package essentially comes down to over-aggressive world-splitting optimizations. There's
 multiple sources on this optimization:
 
-* https://discourse.julialang.org/t/avoiding-vectors-of-abstract-types/61883/20
-* https://discourse.julialang.org/t/how-is-it-that-new-julia-programmers-tend-to-abuse-type-annotations/108465/19
-* https://discourse.julialang.org/t/does-julia-create-a-1-5-language-problem/107984/110
-* https://discourse.julialang.org/t/static-jl-vs-staticnumbers-jl/87228/21
+  - https://discourse.julialang.org/t/avoiding-vectors-of-abstract-types/61883/20
+  - https://discourse.julialang.org/t/how-is-it-that-new-julia-programmers-tend-to-abuse-type-annotations/108465/19
+  - https://discourse.julialang.org/t/does-julia-create-a-1-5-language-problem/107984/110
+  - https://discourse.julialang.org/t/static-jl-vs-staticnumbers-jl/87228/21
 
 Basically what happens is that Julia's base image specializes on all of the dispatches it sees in the
 world that it builds. So for example, in Julia's Base image, you see that `<(x,y)` always returns a Bool.
@@ -28,7 +28,7 @@ However, enter a library like Symbolics.jl which adds a method `<(x::Num, y)::Nu
 represented symbolically rather than eagerly evaluated into a Bool. This breaks the world-splitting
 assumptions and thus every single code that assumed `<` would output a Bool has to be recompiled.
 However, you can see that it's not only Symbolics.jl that does this, but Static.jl, TaylorModels.jl,
-tracers defined in JuMP, ..., there's a huge list of libraries that can trigger this invalidation. 
+tracers defined in JuMP, ..., there's a huge list of libraries that can trigger this invalidation.
 
 **The issue isn't that these packages are abnormal, it's that Julia's Base image is really abnormal!**
 **It's a world with effectively no standard Julia code and no standard Julia package**
@@ -72,9 +72,9 @@ But whatever the matter is, it's very clear that `@recompile_invalidations` is s
 too high of a level in those scenarios. What we really want is to simply trigger the invalidations
 we know we will have in Pkg, the REPL, etc., force the construction of a new image, and keep that
 around for the future. And since we know "most" (according to JuliaHub statistics, around 1300 out of
-6000 for Static.jl alone) packages will hit these same invalidators, we might as well put it as the 
-very bottom of the dependency chain so that this only happens once, and if this package never changes 
-(or almost never changes), this precompilation only happens the first time you install Julia packages. 
+6000 for Static.jl alone) packages will hit these same invalidators, we might as well put it as the
+very bottom of the dependency chain so that this only happens once, and if this package never changes
+(or almost never changes), this precompilation only happens the first time you install Julia packages.
 All subsequent updates can then reuse the world that comes after this invalidation fix.
 
 That of course leads directly to CommonWorldInvalidations.jl.
@@ -86,5 +86,5 @@ That is another possible solution. That solution requires convincing everyone th
 in cases where these packages aren't used. Of course I throw out 10% as a number I haven't actually measured.
 The point is, you'd have to go measure a ton of things and convince a ton of people on each method
 despecialization, which may take a lot of time and effort. We would like to see this change happen in Base,
-but until that happens, CommonWorldInvalidations.jl effectively renders this a non-issue and we can 
+but until that happens, CommonWorldInvalidations.jl effectively renders this a non-issue and we can
 move on with our lives with this simple little hack in place.
