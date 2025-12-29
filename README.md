@@ -88,3 +88,4 @@ The point is, you'd have to go measure a ton of things and convince a ton of peo
 despecialization, which may take a lot of time and effort. We would like to see this change happen in Base,
 but until that happens, CommonWorldInvalidations.jl effectively renders this a non-issue and we can
 move on with our lives with this simple little hack in place.
+
