@@ -13,6 +13,7 @@ using Test
 # unavoidable non-public-access exception is ignored on the relevant check.
 run_qa(
     CommonWorldInvalidations;
+    api_docs_kwargs = (; rendered = true),
     aqua_kwargs = (; ambiguities = false, deps_compat = false),
     jet_kwargs = (; target_defined_modules = true),
     explicit_imports = true,
