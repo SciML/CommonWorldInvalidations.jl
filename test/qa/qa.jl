@@ -14,8 +14,7 @@ using Test
 run_qa(
     CommonWorldInvalidations;
     aqua_kwargs = (; ambiguities = false, deps_compat = false),
-    jet_kwargs = (; target_defined_modules = true),
-    explicit_imports = true,
+    jet_kwargs = (; target_modules = (CommonWorldInvalidations,)),
     ei_kwargs = (; all_qualified_accesses_are_public = (; ignore = (:axistype,))),
 )
 
