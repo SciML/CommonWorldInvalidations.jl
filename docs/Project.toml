@@ -1,0 +1,7 @@
+[deps]
+CommonWorldInvalidations = "f70d9fcc-98c5-4d4a-abd7-e4cdeebd8ca8"
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+
+[compat]
+Documenter = "1"
+julia = "1.10"

@@ -1,3 +1,9 @@
+"""
+    CommonWorldInvalidations
+
+Defines intentionally specialized `Base` methods that exercise common-world
+invalidations while the package is loaded.
+"""
 module CommonWorldInvalidations
 
 struct Despec1 <: Real end
@@ -70,10 +76,10 @@ Base.getproperty(::UDespec2, s::Symbol) = UDespec3()
 Base.getproperty(::UDespec3, s::Symbol) = UDespec4()
 Base.getproperty(::UDespec4, s::Symbol) = UDespec1()
 
-Base.Broadcast.axistype(::Any, ::UDespec2) = Despec3()
-Base.Broadcast.axistype(::Any, ::UDespec3) = Despec4()
-Base.Broadcast.axistype(::Any, ::UDespec4) = Despec1()
-Base.Broadcast.axistype(::Any, ::UDespec1) = Despec2()
+Base.axes(::UDespec1) = UDespec2()
+Base.axes(::UDespec2) = UDespec3()
+Base.axes(::UDespec3) = UDespec4()
+Base.axes(::UDespec4) = UDespec1()
 
 struct ORDespec1 <: OrdinalRange{Int, Int} end
 struct ORDespec2 <: OrdinalRange{Int, Int} end
