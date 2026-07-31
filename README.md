@@ -37,7 +37,7 @@ tracers defined in JuMP, ..., there's a huge list of libraries that can trigger 
 So what can we do about this? Enter CommonWorldInvalidations.jl. CommonWorldInvalidations.jl collects the common
 invalidation paths seen throughout the Julia ecosystem, which includes `<` assuming Bool, but also
 `||`, `>`, etc. every other Boolean operator, and forces the de-specialization of this optimization
-by simply defining a few more methods. Packages can then reply on CommonWorldInvalidations.jl and use
+by simply defining a few more methods. Packages can then rely on CommonWorldInvalidations.jl and use
 `@recompile_invalidations` which forces the Julia package image builder to recompile all code
 invalidated through these changes, which then causes the world post-import to be consistent.
 
