@@ -38,7 +38,7 @@ So what can we do about this? Enter CommonWorldInvalidations.jl. CommonWorldInva
 invalidation paths seen throughout the Julia ecosystem, which includes `<` assuming Bool, but also
 `||`, `>`, etc. every other Boolean operator, and forces the de-specialization of this optimization
 by simply defining a few more methods. Packages can then rely on CommonWorldInvalidations.jl and use
-`@recompile_invalidations` which forces the Julia package image builder to recompile all code
+`PrecompileTools.@recompile_invalidations` which forces the Julia package image builder to recompile all code
 invalidated through these changes, which then causes the world post-import to be consistent.
 
 ## What happens if you try to do this without CommonWorldInvalidations.jl?
@@ -47,7 +47,7 @@ Say for example you don't rely on CommonWorldInvalidations.jl and you do this in
 like Symbolics. First of all, if you don't do anything about invalidations you will simply get
 bad "time to first x" (TTFX) issues, i.e. after `using Symbolics` you will notice your REPL is
 slower (since it relies on uninferred Bool evaluations in some places), Pkg is slower, ... the
-entire Julia process is a mess. So what you can do is use PrecompileTools.@recompile_invalidations
+entire Julia process is a mess. So what you can do is use @recompile_invalidations
 on the methods which define these operations. This will force the Julia package image builder
 to recompile all code that gets invalidated by this operation, thus making it all happen at
 precompilation time, and it will get stored into your Symbolics package image. This means after
