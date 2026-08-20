@@ -110,4 +110,18 @@ Base.convert(::Type{T}, ::Despec2) where {T <: Real} = one(T)
 Base.convert(::Type{T}, ::Despec3) where {T <: Real} = one(T)
 Base.convert(::Type{T}, ::Despec4) where {T <: Real} = one(T)
 
+using PrecompileTools: @compile_workload, @setup_workload
+
+@setup_workload begin
+    @compile_workload begin
+        x = Despec1()
+        !x
+        zero(Despec1)
+        x < Despec2()
+        convert(Float64, x)
+        axes(UDespec1())
+        eachindex(VDespec1())
+    end
+end
+
 end
