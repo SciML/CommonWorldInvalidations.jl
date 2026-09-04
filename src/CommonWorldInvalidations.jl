@@ -80,6 +80,19 @@ Base.axes(::UDespec1) = UDespec2()
 Base.axes(::UDespec2) = UDespec3()
 Base.axes(::UDespec3) = UDespec4()
 Base.axes(::UDespec4) = UDespec1()
+Base.axes(::UDespec1, ::Integer) = UDespec2()
+Base.axes(::UDespec2, ::Integer) = UDespec3()
+Base.axes(::UDespec3, ::Integer) = UDespec4()
+Base.axes(::UDespec4, ::Integer) = UDespec1()
+
+struct MDespec1 <: AbstractMatrix{Float64} end
+struct MDespec2 <: AbstractMatrix{Float64} end
+struct MDespec3 <: AbstractMatrix{Float64} end
+struct MDespec4 <: AbstractMatrix{Float64} end
+Base.axes(::MDespec1, ::Integer) = UDespec2()
+Base.axes(::MDespec2, ::Integer) = UDespec3()
+Base.axes(::MDespec3, ::Integer) = UDespec4()
+Base.axes(::MDespec4, ::Integer) = UDespec1()
 
 struct ORDespec1 <: OrdinalRange{Int, Int} end
 struct ORDespec2 <: OrdinalRange{Int, Int} end
@@ -120,6 +133,8 @@ using PrecompileTools: @compile_workload, @setup_workload
         x < Despec2()
         convert(Float64, x)
         axes(UDespec1())
+        axes(UDespec1(), 1)
+        axes(MDespec1(), 1)
         eachindex(VDespec1())
     end
 end
